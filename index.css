@@ -231,7 +231,7 @@ body {
 .faq .answer {
     padding: 0 8px;
 }
-.faq button{
+.faq .faq-question-button{
     align-items: center;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -248,7 +248,7 @@ body {
     text-overflow: ellipsis;
     width: 100%;
 }
-.faq button::after {
+.faq .faq-question-button::after {
     content: '';
     display: block;
     box-sizing: border-box;
@@ -258,7 +258,7 @@ body {
     border-top: 2px solid;
     border-right: 2px solid;
     right: 12px;
-    top: 30px;
+    top: 6px;
     transform: rotate(225deg);
     transition: transform .2s ease-in-out;
 }
@@ -275,7 +275,7 @@ body {
     transition: height .1s ease-in-out;
 }
 
-.faq button:is([aria-expanded="true"])::after{
+.faq .faq-question-button:is([aria-expanded="true"])::after{
     transform: rotate(135deg);
     transition: transform .1s ease-in-out;
 }

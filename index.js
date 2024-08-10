@@ -102,47 +102,41 @@ function processBrick(el) {
 }
 
 function processFaq(el) {
-    const faqContent = FAQ.map((faq, index) => `
+    let faqContent = '';
+    FAQ.forEach((faq, index) => {
+        faqContent += `
         <div class="faq-set">
             <div class="question">
-                <div>
-                    <button aria-expanded="false" type="button" aria-controls="faq${index}_desc" class="faq-question-button"><h3>${faq.q}</h3></button>
-                </div>
-                <div id="faq${index}_desc" class="answer" aria-hidden="true">
-                    <div>
-                        <p>${faq.a}</p>
-                    </div>
+                <div aria-expanded="false" aria-controls="faq${index}_desc" class="faq-question-button">
+                    <h3>${faq.q}</h3>
                 </div>
             </div>
-        </div>
-    `).join('');
+            <div id="faq${index}_desc" class="answer" aria-hidden="true">
+                <div>
+                    <p>${faq.a}</p>
+                </div>
+            </div>
+        </div>`;
+    });
+
     el.innerHTML = faqContent;
 
-    // Event delegation for FAQ
-    el.addEventListener('click', function(event) {
-        let button = event.target;
-        if (button.tagName === 'H3') {
-            button = button.parentElement; // Get the button if H3 is clicked
-        }
-        if (button.classList.contains('faq-question-button')) {
-            const expanded = button.getAttribute('aria-expanded') === 'true';
-            const controlledPanel = document.getElementById(button.getAttribute('aria-controls'));
-
-            // Collapse all answers
-            el.querySelectorAll('.faq-question-button').forEach(b => {
-                const panel = document.getElementById(b.getAttribute('aria-controls'));
+    // Add event listeners to the buttons
+    const buttons = el.querySelectorAll('.faq-question-button');
+    buttons.forEach(button => {
+        const parent = button.parentElement;
+        button.addEventListener('click', function() {
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            buttons.forEach(b => {
                 b.setAttribute('aria-expanded', 'false');
-                panel.setAttribute('aria-hidden', 'true');
-                panel.style.maxHeight = null; // Reset max-height for animation
+                document.getElementById(b.getAttribute('aria-controls')).setAttribute('aria-hidden', 'true');
             });
 
-            // Expand the clicked answer if it was not already expanded
             if (!expanded) {
-                button.setAttribute('aria-expanded', 'true');
-                controlledPanel.setAttribute('aria-hidden', 'false');
-                controlledPanel.style.maxHeight = controlledPanel.scrollHeight + 'px';
+                this.setAttribute('aria-expanded', 'true');
+                document.getElementById(this.getAttribute('aria-controls')).setAttribute('aria-hidden', 'false');
             }
-        }
+        });
     });
 }
 
