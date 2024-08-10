@@ -214,7 +214,7 @@ body {
     margin: 20px auto;
     border-bottom: 1px solid #ccc;
 }
-.faq-set .question:hover:not(.faq-set .question:hover:has([aria-hidden="false"])){
+.faq-set .question:hover:not(.faq-set .question:hover:has([aria-expanded="true"].faq-question-button)){
     background-color: var(--color-gray-100);
     cursor: pointer;
 }

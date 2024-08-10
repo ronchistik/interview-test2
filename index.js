@@ -121,20 +121,25 @@ function processFaq(el) {
 
     el.innerHTML = faqContent;
 
-    // Add event listeners to the buttons
-    const buttons = el.querySelectorAll('.faq-question-button');
-    buttons.forEach(button => {
-        const parent = button.parentElement;
-        button.addEventListener('click', function() {
-            const expanded = this.getAttribute('aria-expanded') === 'true';
-            buttons.forEach(b => {
-                b.setAttribute('aria-expanded', 'false');
-                document.getElementById(b.getAttribute('aria-controls')).setAttribute('aria-hidden', 'true');
+    // Add click event listeners to FAQ
+    const faqSets = el.querySelectorAll('.faq-set');
+
+    faqSets.forEach(set => {
+        set.addEventListener('click', function() {
+            const button = this.querySelector('.faq-question-button');
+            const expanded = button.getAttribute('aria-expanded') === 'true';
+            
+            // Collapse all other buttons
+            faqSets.forEach(s => {
+                const btn = s.querySelector('.faq-question-button');
+                btn.setAttribute('aria-expanded', 'false');
+                document.getElementById(btn.getAttribute('aria-controls')).setAttribute('aria-hidden', 'true');
             });
 
+            // Expand the clicked one if it wasn't already expanded
             if (!expanded) {
-                this.setAttribute('aria-expanded', 'true');
-                document.getElementById(this.getAttribute('aria-controls')).setAttribute('aria-hidden', 'false');
+                button.setAttribute('aria-expanded', 'true');
+                document.getElementById(button.getAttribute('aria-controls')).setAttribute('aria-hidden', 'false');
             }
         });
     });
