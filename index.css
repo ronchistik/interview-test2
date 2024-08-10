@@ -307,9 +307,6 @@ body {
 }
 
 @media screen and (max-width: 599px){
-   .section .hero{
-    margin: var(--spacing-xxs);
-   } 
    .action-area{
     display: flex;
     gap: var(--spacing-s);
