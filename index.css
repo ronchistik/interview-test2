@@ -137,10 +137,10 @@ body {
     border-color: var(--color-accent);
     color: var(--color-white);
 }
-section.section:has(.hero){
+.section:has(.hero){
     background: var(--color-bg-gradient-circle);
 } 
-section.section:has(h1) h1{
+.section:has(h1) h1{
     font-size: var(--type-heading-xxl-size);
     line-height: var(--type-heading-xxl-lh);
 } 
@@ -313,7 +313,7 @@ section.section:has(h1) h1{
 }
 
 @media screen and (max-width: 599px){
-   section.section .hero{
+   .section .hero{
     margin: var(--spacing-xxs);
    } 
    .action-area{

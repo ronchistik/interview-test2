@@ -50,6 +50,13 @@ const bannerData = [
     }
 ];
 
+function addMetaTag() {
+    let metaTag = document.createElement('meta');
+    metaTag.name = "viewport";
+    metaTag.content = "width=device-width, initial-scale=1";
+    document.head.appendChild(metaTag);
+}
+
 function createLinks(actions) {
     return actions.map((link, index) =>
         `<a href="${link.url}" class="con-button ${index === 1 ? 'blue' : ''}">${link.text}</a>`
@@ -70,18 +77,28 @@ function processHero(el) {
 }
 
 function processBrick(el) {
-    const brickContent = brickData.map((brick, index) => `
-        <div class="brick ${index === 1 ? 'double' : ''} ${index === 2 ? 'triple' : ''}">
-            <div>
-                <div>
-                    <h3 class="title">${brick.title}</h3>
-                    <p class="price">${brick.price}</p>
-                    <p class="description">${brick.description}</p>
-                </div>
-            </div>
-        </div>
-    `).join('');
-    el.innerHTML = brickContent;
+    const bricks = document.querySelectorAll('.brick');
+    bricks.forEach(brick => {
+        const firstChildDiv = brick.firstElementChild;
+        if (firstChildDiv && firstChildDiv.tagName === 'DIV') {
+            // Add classes to the respective <p> tags
+            const siblingDiv = firstChildDiv.nextElementSibling;
+            if (siblingDiv) {
+                const pTags = siblingDiv.querySelectorAll('p');
+                if (pTags.length >= 3) {
+                    pTags[0].classList.add('title');
+                    pTags[1].classList.add('price');
+                    pTags[2].classList.add('description');
+                }
+
+                // Delete the unnecessary sibling div (first child and sibling)
+                const firstSiblingDiv = siblingDiv.previousElementSibling;
+                if (firstSiblingDiv && firstSiblingDiv.tagName === 'DIV') {
+                    brick.removeChild(firstSiblingDiv);
+                }
+            }
+        }
+    });
 }
 
 function processFaq(el) {
@@ -149,6 +166,7 @@ function processBanner(el) {
     });
 }
 
+addMetaTag()
 document.querySelectorAll('.hero').forEach(processHero);
 document.querySelectorAll('.brick').forEach(processBrick);
 document.querySelectorAll('.faq').forEach(processFaq);
