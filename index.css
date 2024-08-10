@@ -280,12 +280,6 @@ body {
     transition: transform .1s ease-in-out;
 }
 
-.faq .faq-set:is([data="sticky"]):has(button:is([aria-expanded="true"])){
-    position:-webkit-sticky; position:sticky; bottom:0;
-    bottom:0px;
-    background-color: var(--background-color);
-    z-index: 11;
-}
 .banner {
     background-color: #eee;
     padding: 16px;
