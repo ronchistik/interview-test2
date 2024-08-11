@@ -1,6 +1,8 @@
 :root {
     --global-height-nav: 64px;
     --global-height-breadcrumbs: 33px;
+    --global-height-navPromo: 65px;
+    --feds-totalheight-nav: calc(var(--feds-height-nav, --global-height-nav) + var(--feds-height-breadcrumbs, --global-height-breadcrumbs));
     --link-color: #035fe6;
     --link-hover-color: #136ff6;
     --link-color-dark: #1473E6;
